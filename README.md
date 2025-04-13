@@ -22,10 +22,10 @@
 
 - [x] Models and DB Connection
 
-- [] CRUD on Task
+- [X] CRUD on Task
 
-- [] Postman Tests
+- [X] Postman Tests
 
-- [] Deliverables
+- [X] Deliverables
 
 
