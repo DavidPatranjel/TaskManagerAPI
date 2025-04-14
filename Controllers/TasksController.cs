@@ -66,7 +66,9 @@ namespace TaskManager.Controllers
             _logger.LogDebug("Running adding a task...");
 
             // Validate that the status value is within the range
-            if (!Enum.IsDefined(typeof(Models.Entities.Task.TaskStatus), newTask.Status))
+            int statusValue = (int)newTask.Status;
+
+            if (!Enum.IsDefined(typeof(Models.Entities.Task.TaskStatus), statusValue))
             {
                 _logger.LogError(ErrorMessages.badRequestStatus);
                 return BadRequest(ErrorMessages.badRequestStatus);
@@ -121,6 +123,13 @@ namespace TaskManager.Controllers
         public async Task<IActionResult> UpdateParentTask(int id, int parentId)
         {
             _logger.LogDebug("Running update parent task...");
+            // Verify if task is it s own parent
+
+            if (id == parentId)
+            {
+                _logger.LogError(ErrorMessages.badRequestParent);
+                return NotFound(ErrorMessages.badRequestParent);
+            }
 
             var task = await _unitOfWork.Tasks.GetById(id);
             var parent = await _unitOfWork.Tasks.GetById(parentId);
@@ -164,10 +173,19 @@ namespace TaskManager.Controllers
                 return NotFound(ErrorMessages.dbErrorTaskId);
             }
 
+            // Verify if task is it s own parent
+
+            if (updatedTaskDto.ParentTaskId.HasValue && updatedTaskDto.ParentTaskId.Value == id)
+            {
+                _logger.LogError(ErrorMessages.badRequestParent);
+                return NotFound(ErrorMessages.badRequestParent);
+            }
+
             // Update fields from the DTO
             existingTask.Title = updatedTaskDto.Title;
             existingTask.Description = updatedTaskDto.Description;
             existingTask.Status = (Models.Entities.Task.TaskStatus)updatedTaskDto.Status;
+            existingTask.DueDate = updatedTaskDto.DueDate;
             existingTask.ResponsibleId = updatedTaskDto.ResponsibleId;
             existingTask.ParentTaskId = updatedTaskDto?.ParentTaskId;
 
