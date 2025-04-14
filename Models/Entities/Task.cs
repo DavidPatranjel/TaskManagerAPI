@@ -21,6 +21,7 @@ namespace TaskManager.Models.Entities
 
         [Required(ErrorMessage = "Please insert the status of this task")]
         public TaskStatus Status { get; set; } = TaskStatus.NotStarted;
+        public DateTime? DueDate { get; set; }
 
 
         [Required(ErrorMessage = "Please insert the responsible of this task")]
@@ -48,6 +49,7 @@ namespace TaskManager.Models.Entities
             Title = tdto.Title;
             Description = tdto.Description;
             Status = (TaskStatus)tdto.Status;
+            DueDate = tdto.DueDate;
             ResponsibleId = tdto.ResponsibleId;
             ParentTaskId = tdto.ParentTaskId;
         }

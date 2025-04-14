@@ -8,6 +8,8 @@
         public static string dbErrorResponsibleId = "DB Error: Cant find responsible with this id";
         public static string badRequestStatus = "Bad Request: Status not in range";
         public static string notFoundTasks = "Tasks not found with this data";
+        public static string badRequestParent = "Bad Request: Task cannot be it s own parent";
+
 
     }
 }

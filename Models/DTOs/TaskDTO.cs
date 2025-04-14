@@ -23,6 +23,7 @@ namespace TaskManager.Models.DTOs
         [Required(ErrorMessage = "Please insert the description of this task")]
         [MaxLength(400, ErrorMessage = "The task description must have at most 400 characters")]
         public string Description { get; set; } = string.Empty;
+        public DateTime? DueDate { get; set; }
 
         [Required(ErrorMessage = "Please insert the status of this task")]
         public TaskStatus Status { get; set; } = TaskStatus.NotStarted;
@@ -36,6 +37,7 @@ namespace TaskManager.Models.DTOs
             Title = task.Title;
             Description = task.Description;
             Status = (TaskStatus)task.Status;
+            DueDate = task.DueDate;
             ResponsibleId = task.ResponsibleId;
             ParentTaskId = task.ParentTaskId;
         }

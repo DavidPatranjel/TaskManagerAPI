@@ -20,7 +20,7 @@ namespace TaskManager.Controllers
             _logger = logger;
         }
 
-        [HttpGet("/comments/{task_id}")]
+        [HttpGet("task-id/{task_id}")]
         public async Task<IActionResult> GetComments(int task_id)
         {
             _logger.LogDebug("Running getting comments of a task...");
@@ -40,7 +40,7 @@ namespace TaskManager.Controllers
             
         }
 
-        [HttpPost("{taskid}")]
+        [HttpPost("task-id/{taskid}")]
         public async Task<IActionResult> AddComments(int taskid, [FromBody] CommentDTO addCommentRequest)
         {
             _logger.LogDebug("Running adding a comment...");
